@@ -42,7 +42,7 @@ This week is divided into **two parts**: conceptual theory and hands-on labs.
 
 **Deliverable:** Markdown file summarizing all the theory with diagrams and explanations.  
 
-**Link to Part 1:** [Part 1 – Conceptual Understanding](./Part1/README.md)
+**Link to Part 1:** [Part 1 – Conceptual Understanding](./Part1/Deliverables.md)
 
 ---
 
