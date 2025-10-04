@@ -76,7 +76,7 @@ vvp baby_soc_tb.vvp
 ```
 
 ### Output: baby_soc.vcd generated
-***Uploaded as baby_soc.vcd***
+**Uploaded as** ***[baby_soc.vcd](Part-2/baby_soc.vcd)***
 
 ## 5. Conclusion and Observation
 
