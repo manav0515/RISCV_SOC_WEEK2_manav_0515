@@ -10,7 +10,7 @@
 4. [Role of Functional Modelling in SoC Design Flow](#4-role-of-functional-modelling-in-soc-design-flow)
 5. [Summary](#5-summary)
 6. [Deliverable](#deliverable)
-7. [References](#-references)
+7. [References](#references)
    
 ---
 
