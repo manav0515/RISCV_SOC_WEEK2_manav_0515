@@ -1,4 +1,4 @@
-# 🧩 Week 2 – BabySoC Fundamentals & Functional Modelling  
+# Week 2 – BabySoC Fundamentals & Functional Modelling  
 ### **Part 1: Conceptual Understanding**
 
 ---
