@@ -42,7 +42,7 @@ This week is divided into **two parts**: conceptual theory and hands-on labs.
 
 **Deliverable:** Markdown file summarizing all the theory with diagrams and explanations.  
 
-**Link to Part 1:** [Part 1 – Conceptual Understanding](./Part1/Deliverables.md)
+**Link to Part 1:** [Part 1 – Conceptual Understanding](./Part-1/Deliverables.md)
 
 ---
 
@@ -64,7 +64,7 @@ This week is divided into **two parts**: conceptual theory and hands-on labs.
 - GTKWave screenshots with observations  
 - README documenting each screenshot and analysis  
 
-**Link to Part 2:** [Part 2 – Hands-on Functional Modelling](./Part2/README.md)
+**Link to Part 2:** [Part 2 – Hands-on Functional Modelling](./Part-2/README.md)
 
 ---
 
