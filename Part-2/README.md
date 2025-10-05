@@ -165,7 +165,7 @@ gtkwave pre_synth_sim.vcd
 **Explanation: -**
 - Generates .vcd waveform for GTKWave analysis.
 - Observes full system behavior: core, PLL, DAC outputs.
-**Uploaded as** ***[baby_soc.vcd](baby_soc.vcd)***
+- **Uploaded as** ***[pre_synth_sim.vcd](pre_synth_sim.vcd)***
 
 ### 4.4 Waveform Analysis
 
@@ -242,7 +242,7 @@ CLK, REF, END_CP, END_VCO, RV_TO_DAC[9:0], VCO_IN, VREFH
 1. **Module-Level Signals (5.1)** focus on **functional correctness** and **dataflow** between CPU, Memory, and Peripheral.  
 2. **System-Level Signals (5.2)** include **mixed-signal outputs** (DAC), **multi-clock domains**, and **completion/control flags**.  
 3. Observing these signals ensures **correct operation at both module and system levels**, and builds confidence before actual hardware synthesis.  
-4. Values shown are derived from simulation `.vcd` files in **GTKWave**.
+4. Values shown are derived from simulation [.vcd](pre_synth_sim.vcd) files in **GTKWave**.
 
 ---
 
