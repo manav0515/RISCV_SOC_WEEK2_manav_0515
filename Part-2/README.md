@@ -109,7 +109,7 @@ vvp baby_soc_tb.vvp
 ```
 
 ### Output: -
-**Uploaded as** ***[baby_soc.vcd]((Module-Level-Simulation)-Functional-Modeling-of-BabySoC/baby_soc.vcd)***
+**Uploaded as** ***[baby_soc.vcd]((Module-LevelSimulation)FunctionalModelingofBabySoC/baby_soc.vcd)***
 
 ## 2.5 Observations and Conclusion
 
