@@ -208,47 +208,57 @@ CLK, REF, END_CP, END_VCO, RV_TO_DAC[9:0], VCO_IN, VREFH
 
 ### 5.1 Part 1 – Module-Level Functional Modeling
 
+---
+
 | Signal Name        | Description                                         | Observed Behavior / Values                                  | Notes                                           |
 |-------------------|-----------------------------------------------------|-------------------------------------------------------------|------------------------------------------------|
-| reset             | Global reset signal                                 | 1 → All outputs initialized to 0                             | Active high reset                               |
-| clk               | System clock                                        | Toggles regularly (~50% duty cycle)                          | Drives CPU synchronous operations              |
-| cpu_out           | CPU output register                                 | Increments on each rising edge of `clk`                      | Shows correct synchronous increment            |
-| cpu_to_mem        | Data bus from CPU to Memory                         | Values match CPU computations                                 | Correct propagation from CPU to Memory         |
-| mem_out           | Memory output after processing CPU data            | Memory adds 1 to received CPU data                            | Confirms Memory functional correctness         |
-| mem_to_cpu        | Memory response to CPU                              | Updated memory value returned to CPU                          | Matches expected memory behavior               |
-| mem_to_periph     | Memory output to Peripheral module                  | Data forwarded to Peripheral                                   | Confirms inter-module communication            |
-| periph_out        | Peripheral processed data                            | Adds 2 to received value                                       | Shows Peripheral module computation            |
-| periph_to_cpu     | Peripheral feedback to CPU                           | Returns final processed value to CPU                           | Confirms closed-loop dataflow                  |
+| reset             | Global reset signal                                 | 1 → 0 transition observed                                   | Active-high reset — initializes all outputs to 0 |
+| clk               | System clock                                        | 0 → 1 → 0 → 1 → 0                                           | Regular toggle (~50% duty cycle) drives synchronous logic |
+| cpu_out           | CPU output register                                 | Not explicitly in sample                                    | Expected to increment each rising edge         |
+| cpu_to_mem        | Data bus from CPU to Memory                         | —                                                           | Transfers computed CPU values to Memory        |
+| mem_out           | Memory processed output                             | —                                                           | Memory adds +1 to CPU input                    |
+| mem_to_cpu        | Memory feedback to CPU                              | —                                                           | Returns processed value to CPU                 |
+| mem_to_periph     | Memory to Peripheral link                           | —                                                           | Confirms inter-module communication            |
+| periph_out        | Peripheral processed data                           | —                                                           | Peripheral adds +2 to received data            |
+| periph_to_cpu     | Peripheral feedback to CPU                          | —                                                           | Closes feedback dataflow loop                  |
+
+---
 
 ### 5.2 Part 2 – Pre-Synthesis System-Level Simulation
+---
 
 | Signal Name        | Description                                         | Observed Behavior / Values                                  | Notes                                           |
 |-------------------|-----------------------------------------------------|-------------------------------------------------------------|------------------------------------------------|
-| CLK               | High-speed system clock                              | Regular square wave, consistent period                       | Drives all synchronous modules                 |
-| REF               | Reference clock                                     | Slower periodic pulses                                       | Multi-clock domain coordination                |
-| END_CP            | Completion flag for CPU pipeline                     | 1 when CPU completes instruction program                     | Monitors CPU status                             |
-| END_VCO           | Sub-module completion flag                           | 1 when VCO or DAC block ready                                 | Timing coordination signal                      |
-| reset             | Global reset signal                                  | System initialized to 0 on high reset                         | Prepares system for operation                  |
-| RV_TO_DAC[9:0]    | 10-bit data bus to DAC                               | Ramp → Peak → Oscillation sequence (e.g., 903 → 946 → 903±r11) | Represents digital waveform input to DAC      |
-| VCO_IN            | Control input for voltage-controlled module         | Observed baseline 0 during pre-synth simulation              | Can vary for future analog control             |
-| VREFH             | Voltage reference for DAC                             | Constant high reference voltage                               | Ensures DAC operates within correct range     |
-| OUT               | DAC analog output                                     | ~0.882 V → 0.925 V (for r17 = 903 → 946)                     | Converted from 10-bit digital input            |
-| CPU_TO_MEM        | CPU to Memory data bus                                | Matches instruction program execution                         | Shows correct propagation at system-level      |
-| MEM_TO_CPU        | Memory to CPU feedback                                | Updated values returned after computation                     | Confirms CPU-memory interaction                |
-| MEM_TO_PERIPH     | Memory to Peripheral data bus                          | Forwarded values processed                                     | Correct multi-module data propagation         |
-| PERIPH_OUT        | Peripheral processed output                             | DAC-ready values                                             | Demonstrates peripheral computation correctness|
-| PERIPH_TO_CPU     | Feedback path from Peripheral to CPU                  | Final data reflected back                                     | Ensures closed-loop operation                  |
+| EN                | Global enable signal                                | 1                                                           | System active when asserted                    |
+| gating_override   | Clock gating control                                | 0 0 0 0 0                                                   | Clock gating disabled                          |
+| func_en           | Functional enable                                   | 1 1 1 1 1                                                   | Modules active throughout simulation           |
+| L1_wr_a3          | Level-1 write address (bit 3)                       | x x x x x                                                   | Uninitialized logic                            |
+| L1_wr_a4          | Level-1 write address (bit 4)                       | x x x x x                                                   | —                                              |
+| CPU_valid_taken_br_a5 | Branch valid flag (stage a5)                    | x                                                           | Inactive in this simulation window             |
+| CPU_valid_taken_br_a4 | Branch valid flag (stage a4)                    | x                                                           | —                                              |
+| CPU_valid_load_a5 | Load valid flag (stage a5)                          | x                                                           | No load executed                               |
+| CPU_valid_load_a4 | Load valid flag (stage a4)                          | x                                                           | —                                              |
+| CPU_valid_jump_a5 | Jump valid flag (stage a5)                          | x                                                           | Inactive                                       |
+| CPU_valid_jump_a4 | Jump valid flag (stage a4)                          | x                                                           | —                                              |
+| CPU_valid_a4      | CPU valid execution (stage a4)                      | x                                                           | Undefined                                      |
+| CPU_rs2_valid_a2  | Register-source 2 valid (stage a2)                  | x                                                           | —                                              |
+| CPU_rs1_valid_a2  | Register-source 1 valid (stage a2)                  | x                                                           | —                                              |
+| CPU_reset_a4      | CPU reset indicator (stage a4)                      | x                                                           | Reset not triggered                            |
+
+---
+
 
 ### 5.3 Notes on Signal Tables
 
-1. **Module-Level Signals (5.1)** focus on **functional correctness** and **dataflow** between CPU, Memory, and Peripheral.  
-2. **System-Level Signals (5.2)** include **mixed-signal outputs** (DAC), **multi-clock domains**, and **completion/control flags**.  
-3. Observing these signals ensures **correct operation at both module and system levels**, and builds confidence before actual hardware synthesis.  
-4. Values shown are derived from
+1. **[baby_soc.vcd](%28Module-Level%20Simulation%29%20Functional%20Modeling%20of%20BabySoC/baby_soc.vcd)** confirms functional correctness at the module level (CPU–Memory–Peripheral loop).  
+2. **[pre_synth_sim.vcd](%28System-Level%20Pre-Synthesis%20Simulation%29Functional%20Modeling%20of%20BabySoC/pre_synth_sim.vcd)**
+ introduces system-level and CPU pipeline signals for pre-synthesis verification.  
+3. Together, they confirm end-to-end data propagation, multi-stage CPU validation, and clock gating analysis.  
+4. Signal traces were verified via
    - ***[baby_soc.vcd](%28Module-Level%20Simulation%29%20Functional%20Modeling%20of%20BabySoC/baby_soc.vcd)***
    - ***[pre_synth_sim.vcd](%28System-Level%20Pre-Synthesis%20Simulation%29Functional%20Modeling%20of%20BabySoC/pre_synth_sim.vcd)***
 
-   simulation files in **GTKWave**.
+   waveform inspection in **GTKWave** prior to synthesis.
 
 ---
 
