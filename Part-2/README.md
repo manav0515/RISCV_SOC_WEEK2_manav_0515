@@ -247,7 +247,8 @@ CLK, REF, END_CP, END_VCO, RV_TO_DAC[9:0], VCO_IN, VREFH
 4. Values shown are derived from
    - ***[baby_soc.vcd](%28Module-Level%20Simulation%29%20Functional%20Modeling%20of%20BabySoC/baby_soc.vcd)***
    - ***[pre_synth_sim.vcd](%28System-Level%20Pre-Synthesis%20Simulation%29Functional%20Modeling%20of%20BabySoC/pre_synth_sim.vcd)***
-    simulation files in **GTKWave**.
+
+   simulation files in **GTKWave**.
 
 ---
 
