@@ -244,7 +244,10 @@ CLK, REF, END_CP, END_VCO, RV_TO_DAC[9:0], VCO_IN, VREFH
 1. **Module-Level Signals (5.1)** focus on **functional correctness** and **dataflow** between CPU, Memory, and Peripheral.  
 2. **System-Level Signals (5.2)** include **mixed-signal outputs** (DAC), **multi-clock domains**, and **completion/control flags**.  
 3. Observing these signals ensures **correct operation at both module and system levels**, and builds confidence before actual hardware synthesis.  
-4. Values shown are derived from simulation [.vcd](pre_synth_sim.vcd) files in **GTKWave**.
+4. Values shown are derived from
+   - ***[baby_soc.vcd](%28Module-Level%20Simulation%29%20Functional%20Modeling%20of%20BabySoC/baby_soc.vcd)***
+   - ***[pre_synth_sim.vcd](%28System-Level%20Pre-Synthesis%20Simulation%29Functional%20Modeling%20of%20BabySoC/pre_synth_sim.vcd)***
+    simulation files in **GTKWave**.
 
 ---
 
