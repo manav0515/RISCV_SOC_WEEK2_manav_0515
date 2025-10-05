@@ -166,7 +166,7 @@ gtkwave pre_synth_sim.vcd
 **Explanation: -**
 - Generates .vcd waveform for GTKWave analysis.
 - Observes full system behavior: core, PLL, DAC outputs.
-- **Uploaded as** ***[pre_synth_sim.vcd](pre_synth_sim.vcd)***
+- **Uploaded as** ***[pre_synth_sim.vcd](System-LevelPreSynthSimulation-FunctionalModeling/pre_synth_sim.vcd)***
 
 ### 4.4 Waveform Analysis
 
